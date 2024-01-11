@@ -1,0 +1,93 @@
+﻿@using MvcPetShopProject.Models
+@model IEnumerable<Animal>
+<script src="~/scripts/jquery-confirm.min.js"></script>
+<link rel="stylesheet" href="~/lib/styles/jquery-confirm.min.css"/>
+<script>
+    $(document).ready(function () {
+        $(".deleteBtn").click(function () {
+            var animalId = $(this).attr("animal-id");
+            $.confirm({
+                title: 'Are you sure?',
+                content: 'This action will be permanent',
+                typeAnimated: true,
+                type: 'red',
+                theme: 'dark',
+                buttons: {
+                    ok: {
+                        text: "ok!",
+                        btnClass: 'btn btn-dark btn-outline-light',
+                        keys: ['enter'],
+                        action: function () {
+                            $.ajax({
+                                url: '/Admin/OnAnimalDelete',
+                                type: 'POST',
+                                data: { id: animalId },
+                                success: function (result) {
+                                    $('#table-container').html(result);
+                                }
+                            });
+                        }
+                    },
+                    cancel: {
+                        text: "cancel",
+                        btnClass: 'btn btn-dark btn-outline-light',
+                        keys: ['esc']
+                    }
+                }
+            });
+        
+        });
+        $(".editBtn").click(function () {
+            var animalId = $(this).attr("animal-id");
+            window.location.href = "/Admin/EditAnimal/" + animalId;
+        });
+        $(".portraitImg").click(
+            function () {
+            var animalId = $(this).attr("animal-id");
+            window.location.href = "/Animal/GetAnimalDetails/" + animalId;
+        });
+    });
+</script>
+<link rel="stylesheet" src="~/lib/bootstrap/css/bootstrap.css" />
+<table class="table">
+    <tr>
+        <th style="padding: 5px;">Image</th>
+        <th style="padding: 5px;">Name</th>
+        <th style="padding: 5px;">Age</th>
+        <th style="padding: 5px;">Category</th>
+        <th style="padding: 5px;">Description</th>
+        <th style="padding: 5px;">Actions</th>
+    </tr>
+    @foreach (Animal animal in Model)
+        {
+            <tr>
+                <td>
+                    <img 
+                        class="object-fit-cover shadow-sm portraitImg" 
+                        style="height: 100px; width:100px; border-radius: 7px; cursor: pointer;" 
+                        src="~/Images/@animal.PictureName"
+                        animal-id="@animal.AnimalId"/>
+                </td>
+                <td>@animal.Name</td>
+                <td>@animal.Age</td>
+                <td>@animal.Category!.Name</td>
+            <td style="max-width:450px;
+                       word-wrap: break-word;">
+                @animal.Description
+            </td>
+                <td>
+                <a class="btn btn-dark btn-outline-light editBtn"
+                   animal-id="@animal.AnimalId"
+                    >Edit</a>
+                    <a class="btn btn-dark btn-outline-light deleteBtn"
+                        animal-id="@animal.AnimalId">Delete</a>
+                </td>
+            </tr>
+        }
+</table>
+@{
+    if (Model.Count() == 0)
+    {
+        <partial name="_NoAnimalsFoundMsgPartial" />
+    }
+}

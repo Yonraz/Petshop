@@ -1,0 +1,27 @@
+﻿@model IEnumerable<MvcPetShopProject.Models.Animal>
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Animals";
+}
+
+<div class="container justify-content-center">
+    <h1 class="card-title text-center m-4">
+        Welcome to the Pet Shop!
+    </h1>
+    <h4 class="card-subtitle text-center m-3">
+        These Are Our Most Commented Boyz
+    </h4>
+    <div class="w-100 d-flex justify-content-center">
+        <div class="card-columns row border-1 m-1 d-flex justify-content-around w-75">
+            @{
+                foreach (var item in Model)
+                {
+                    <partial name="_AnimalCardPartial" model="@item" class="m-3" />
+                }
+            }
+        </div>
+    </div>
+    <h4 class="card-subtitle m-4">All the pets can be seen in the catalog page, take a look:</h4>
+    <a class="btn btn-light m-2" href="@Url.Action("Catalog", "PetShop")">See Them All!</a>
+    <hr class="m-5"/>
+</div>

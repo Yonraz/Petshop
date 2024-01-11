@@ -1,0 +1,49 @@
+﻿@using MvcPetShopProject.Models
+@model MvcPetShopProject.Models.Animal
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = @Model.Name;
+}
+<script src="~/scripts/jquery.js"></script>
+<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css"/>
+<script>
+    $(document).ready(function () {
+        $('#addCommentBtn').on('mousedown', function () {
+            $.ajax({
+                url: '/Animal/GetCommentForm',
+                type: 'POST',
+                data: { id: @Model.AnimalId },
+                success: function (result) {
+                    $('#commentFormContainer').html(result);
+                }
+            });
+        });
+    });
+</script>
+<div class="container">
+    <h1>@Model.Name</h1>
+    <div class="card">
+        <img src="~/Images/@Model.PictureName" class="card-img-top" style="width:250px; object-fit:cover;" />
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Age: @Model.Age</li>
+            <li class="list-group-item">Category: @Model.Category!.Name</li>
+            <li class="list-group-item">@Model.Description</li>
+        </ul>
+        <div id="commentFormContainer">
+            <button id="addCommentBtn"
+                    class="btn btn-primary m-3 bg-gradient">
+                Add Comment
+            </button>
+        </div>
+        <div class="container-md">
+            <h6 class="card-title">Comments</h6>
+            @foreach (var comment in ViewBag.Comments!)
+            {
+                <div class="m-2">
+                    <partial name="_CommentCardPartial" model="@comment" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

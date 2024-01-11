@@ -1,0 +1,15 @@
+﻿@model MvcPetShopProject.Models.Comment
+
+<div class="card w-50">
+    <div class="small card-header 
+                d-flex align-items-center
+                justify-content-between 
+                bg-primary-subtle bg-gradient"
+         style="height: 2rem;">
+        <h6>@Model.Author</h6>
+        <p class="fw-lighter" style="color: lightgray; font-size: small;">@Model.PublishDate</p>
+    </div>
+    <div class="card-body small">
+        <p>@Model.Content</p>
+    </div>
+</div>

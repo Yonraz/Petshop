@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    <script src="~/scripts/jquery.js"></script>
+</head>
+<body data-bs-theme="dark">
+    <h1 class="text-center">Pet Shop Boyz</h1>
+    <hr class="w-50 m-auto"/>
+    <div class="d-flex justify-content-center ">
+        <nav class="navbar w-75 navbar-expand-lg navbar-light bg-body-tertiary">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/PetShop/Home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/PetShop/Catalog">Catalog</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Admin/Index">Administration</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="container w-75">
+        @RenderBody()
+    </div>
+    <div class="d-flex justify-content-center">
+        <footer class="d-flex justify-content-between w-75">
+            <span class="fs-6 fw-lighter mx-5 my-3" style="color: grey;">Petshop project</span>
+            <span class="fs-6 fw-lighter mx-5 my-3" style="color: grey;">2024</span>
+        </footer>
+    </div>
+</body>
+</html>

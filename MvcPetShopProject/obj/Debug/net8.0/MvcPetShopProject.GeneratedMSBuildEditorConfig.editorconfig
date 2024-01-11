@@ -1,0 +1,83 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = MvcPetShopProject
+build_property.RootNamespace = MvcPetShopProject
+build_property.ProjectDir = C:\Users\yonatan\Documents\Learning\C#\ASPNET core\MVC examples\MvcPetShopProject\MvcPetShopProject\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\yonatan\Documents\Learning\C#\ASPNET core\MVC examples\MvcPetShopProject\MvcPetShopProject
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/Admin/AddAnimal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkQW5pbWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/Admin/EditAnimal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdEFuaW1hbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/Animal/GetAnimalDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5pbWFsXEdldEFuaW1hbERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/PetShop/Catalog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGV0U2hvcFxDYXRhbG9nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/PetShop/Home.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGV0U2hvcFxIb21lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/Shared/_AddCommentFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZGRDb21tZW50Rm9ybVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/Shared/_AnimalCardGridPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BbmltYWxDYXJkR3JpZFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/Shared/_AnimalCardPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BbmltYWxDYXJkUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/Shared/_AnimalTablePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BbmltYWxUYWJsZVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/Shared/_CommentCardPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Db21tZW50Q2FyZFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/Shared/_NoAnimalsFoundMsgPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ob0FuaW1hbHNGb3VuZE1zZ1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/yonatan/Documents/Learning/C\#/ASPNET core/MVC examples/MvcPetShopProject/MvcPetShopProject/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,62 @@
+﻿@model MvcPetShopProject.Models.Comment
+
+<script src="~/scripts/jquery.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#commentForm").validate({
+            rules: {
+                Author: {
+                    required: true
+                },
+                Content: {
+                    required: true,
+                    maxlength: 200
+                }
+            },
+            messages: {
+                Author: {
+                    required: "Please enter the author's name"
+                },
+                Content: {
+                    required: "Please enter a comment",
+                    maxlength: "Please enter a shorter comment (max 200 characters)"
+                }
+            },
+            submitHandler: function (form) {
+                var comment = {
+                    Author: $('#author-name').val(),
+                    Content: $('#content-text').val(),
+                    AnimalId: @Model.AnimalId,
+                }
+                $.ajax({
+                    url: '/Animal/AddComment',
+                    type: 'POST',
+                    data: { comment: comment },
+                    success: function (result) {
+                        location.reload();
+                    }
+                });
+            }
+        });
+
+        $("#addCommentBtn").on('click', function () {
+            $("#commentForm").submit();
+        });
+    });
+</script>
+<div class="modal-body w-75 mx-3">
+    <form method="post" id="commentForm">
+        <div class="form-group">
+            <label asp-for="Author" class="col-form-label">Author:</label>
+            <input asp-for="Author" type="text" class="form-control" id="author-name" maxlength="50">
+        </div>
+        <div class="form-group">
+            <label asp-for="Content" class="col-form-label">Comment:</label>
+            <textarea maxlength="250" asp-for="Content" class="form-control" id="content-text"></textarea>
+        </div>
+    </form>
+    <div class="modal-footer my-2">
+        <button id="addCommentBtn" type="submit" class="btn btn-primary bg-gradient">Add Comment</button>
+    </div>
+</div>

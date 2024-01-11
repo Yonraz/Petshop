@@ -1,0 +1,161 @@
+﻿@using MvcPetShopProject.Models
+@model MvcPetShopProject.Models.Animal
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Add";
+}
+<script src="~/scripts/jquery.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/scripts/jquery-confirm.min.js"></script>
+<link rel="stylesheet" href="~/lib/styles/jquery-confirm.min.css" />
+<script>
+    $(document).ready(function () {
+        $("#addAnimalForm").validate({
+            rules: {
+                Name: {
+                    required: true,
+                },
+                Age: {
+                    required: true,
+                    digits: true,
+                    range: [1, 100]
+                },
+                Category: {
+                    required: true,
+                },
+                Description: {
+                    required: true,
+                    maxlength: 200
+                },
+            },
+            messages: {
+                Name: {
+                    required: "Please enter a name",
+                },
+                Age: {
+                    required: "Please enter an age",
+                    digits: "Please enter a valid age (digits only)",
+                    range: "Please enter a valid age (1-100)"
+                },
+                Category: {
+                    required: "Please enter a category",
+                },
+                Description: {
+                    required: "Please enter a description",
+                    maxlength: "Please enter a shorter description (max 200 characters)"
+                },
+            },
+            submitHandler: function (form) {
+                var formData = new FormData();
+                var files = $("#pictureName")[0].files;
+                var fileName = files.length > 0 ? files[0].name : null;
+                if (files.length > 0 && fileName != null) {
+                    formData.append("fileData.File", files[0]);
+                    formData.append("fileData.FileName", fileName);
+                    $.ajax({
+                        url: "/Image/UploadImage",
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            if (response.statusCode != 200) {
+                                alert("Image upload failed");
+                            }
+                        },
+                        error: function (error) {
+                            alert(error);
+                        }
+                    });
+                }
+                var selectedCategory = {
+                    CategoryId: $("#category").find(":selected").attr("id"),
+                    Name: $("#category").find(":selected").val()
+                }
+                var animal = {
+                    Name: $("#name").val(),
+                    Age: $("#age").val(),
+                    CategoryId: selectedCategory.CategoryId,
+                    PictureName: fileName,
+                    Description: $("#description").val()
+                }
+                $.ajax({
+                    url: "/Admin/OnAnimalAdd",
+                    type: "POST",
+                    data: animal,
+                    success: function (response) {
+                        $.alert({
+                            title: 'Success!',
+                            content: 'Animal added successfully',
+                            type: "green",
+                            theme: 'dark',
+                            buttons: {
+                                ok: {
+                                    text: "ok",
+                                    btnClass: 'btn btn-dark btn-outline-light',
+                                    keys: ['enter'],
+                                    action: function () {
+                                        window.location.href = response.url;
+                                    }
+                                }
+                            }
+                        })
+                    },
+                    error: function (response) {
+                        $.alert({
+                            title: 'Error!',
+                            content: 'Something went wrong...' + response.message,
+                            type: "red",
+                            theme: 'dark',
+                            buttons: {
+                                ok: {
+                                    text: "ok",
+                                    btnClass: 'btn btn-dark btn-outline-light',
+                                    keys: ['enter']
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        });
+        $("#submitBtn").on("click", function (e) {
+            e.preventDefault();
+            $("#addAnimalForm").submit();
+        });
+    })
+</script>
+
+<h1 class="text-center m-3">Add Your Animal!</h1>
+<div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center m-3 w-100">
+        <form method="post" class="form-group mx-5" id="addAnimalForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" id="name" type="text" class="form-control" value="" maxlength="50" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Age">Age</label>
+                <input asp-for="Age" id="age" type="text" class="form-control" value="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Category">Category</label>
+                <select asp-for="Category" class="m-1" id="category" class="dropdown">
+                    @foreach (Category category in ViewBag.Categories)
+                    {
+                        <option selected="@(category.CategoryId == 1)" id="@category.CategoryId" value="@category.Name">@category.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PictureName">Select Image</label>
+                <input asp-for="PictureName" id="pictureName" type="file" accept="image/*" class="form-control" value="" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description">Description</label>
+                <textarea asp-for="Description" id="description" class="form-control" maxlength="200"></textarea>
+            </div>
+            <input id="submitBtn" type="submit" value="Add Animal" class="btn btn-primary my-3" />
+        </form>
+    </div>
+</div>

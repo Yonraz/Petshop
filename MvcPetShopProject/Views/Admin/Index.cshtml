@@ -1,0 +1,40 @@
+﻿@using MvcPetShopProject.Models
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Admin";
+    IEnumerable<Animal> animals = ViewBag.Animals;
+    var selectedCategory = ViewBag.SelectedCategory;
+}
+<script src="~/scripts/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#animal-select").change(function () {
+            var selectedCategory = $(this).children("option:selected").val();
+            $.ajax({
+                url: '/Admin/OnCategoryChange',
+                type: 'POST',
+                data: { selectedCategory: selectedCategory },
+                success: function (result) {
+                    $('#table-container').html(result);
+                }
+            });
+        });
+    });
+</script>
+<div id="admin-container" class="container justify-content-center m-auto p-0">
+    <div class="d-flex justify-content-between align-items-center my-2">
+        <select id="animal-select" class="dropdown-menu-dark dropdown-header">
+            <option value="All">All</option>
+            @foreach (Category category in ViewBag.Categories)
+            {
+                <option class="dropdown-item" selected="@(selectedCategory == category.Name)"
+                        value="@category.Name">@category.Name</option>
+            }
+        </select>
+        <a class="btn btn-dark btn-outline-light my-1" href="/Admin/AddAnimal">Add New Animal</a>
+    </div>
+    <div id="table-container">
+        <partial name="_AnimalTablePartial" model="@animals" />
+    </div>
+</div>

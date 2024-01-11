@@ -1,0 +1,165 @@
+﻿@using MvcPetShopProject.Models
+@model MvcPetShopProject.Models.Animal
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = $"Edit {Model.Name}";
+}
+<script src="~/scripts/jquery.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/scripts/jquery-confirm.min.js"></script>
+<link rel="stylesheet" href="~/lib/styles/jquery-confirm.min.css" />
+<script>
+    $(document).ready(function () {
+        $("#editAnimalForm").validate({
+            rules: {
+                Name: {
+                    required: true,
+                    maxlength: 50
+                },
+                Age: {
+                    required: true,
+                    digits: true,
+                    range: [1, 100]
+                },
+                Category: {
+                    required: true,
+                },
+                Description: {
+                    required: true,
+                    maxlength: 200
+                },
+            },
+            messages: {
+                Name: {
+                    required: "Please enter a name",
+                    maxlength: "name can't be more than 50 letters"
+                },
+                Age: {
+                    required: "Please enter an age",
+                    digits: "Please enter a valid age (digits only)",
+                    range: "Please enter a valid age (1-100)"
+                },
+                Category: {
+                    required: "Please enter a category",
+                },
+                Description: {
+                    required: "Please enter a description",
+                    maxlength: "Please enter a shorter description (max 200 characters)"
+                },
+            },
+            submitHandler: function (form) {
+                var formData = new FormData();
+                var files = $("#pictureName")[0].files;
+                var fileName = files.length > 0 ? files[0].name : null;
+                if (files.length > 0 && fileName != null) {
+                    formData.append("fileData.File", files[0]);
+                    formData.append("fileData.FileName", fileName);
+                    $.ajax({
+                        url: "/Image/UploadImage",
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            if (response.statusCode != 200) {
+                                alert("Image upload failed");
+                            }
+                        },
+                        error: function (error) {
+                            alert(error);
+                        }
+                    });
+                }
+                var animal = {
+                    AnimalId: $("#animalDataId").val(),
+                    Name: $("#name").val(),
+                    Age: $("#age").val(),
+                    CategoryId: $("#category").find(":selected").attr("id"),
+                    PictureName: fileName,
+                    Description: $("#description").val()
+                }
+                $.ajax({
+                    url: "/Admin/OnAnimalEdit",
+                    type: "POST",
+                    data: animal,
+                    success: function (response) {
+                        $.alert({
+                            title: 'Success!',
+                            content: 'Animal edited successfully',
+                            type: "green",
+                            theme: 'dark',
+                            buttons: {
+                                ok: {
+                                    text: "ok",
+                                    btnClass: 'btn btn-dark btn-outline-light',
+                                    keys: ['enter'],
+                                    action: function () {
+                                        window.location.href = response.url;
+                                    }
+                                }
+                            }
+                        })
+                    },
+                    error: function (response) {
+                        $.alert({
+                            title: 'Error!',
+                            content: 'Something went wrong...' + response.message,
+                            type: "red",
+                            theme: 'dark',
+                            buttons: {
+                                ok: {
+                                    text: "ok",
+                                    btnClass: 'btn btn-dark btn-outline-light',
+                                    keys: ['enter']
+                                }
+                            }
+                        });
+                        window.location = "/Admin/Index";
+                    }
+                })
+            }
+        });
+        $("#submitBtn").on("click", function (e) {
+            e.preventDefault();
+            $("#editAnimalForm").submit();
+        });
+    })
+</script>
+
+<div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center m-5">
+        <form method="post" class="form-group mx-5" id="editAnimalForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="AnimalId">Id</label>
+                <input asp-for="AnimalId" id="animalDataId" type="text" class="form-control" value="@Model.AnimalId" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" id="name" type="text" class="form-control" value="@Model.Name" maxlength="50"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age">Age</label>
+                <input asp-for="Age" id="age" type="text" class="form-control" value="@Model.Age" />
+            </div>
+            <div class="form-group my-1 d-flex align-items-center">
+                <label asp-for="Category">Category</label>
+                <select id="category" class="dropdown mx-2">
+                    @foreach (Category category in ViewBag.Categories)
+                    {
+                        <option selected="@(Model.Category!.Name == category.Name)" id="@category.CategoryId" value="@category.Name">@category.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PictureName">Select Image</label>
+                <input asp-for="PictureName" id="pictureName" type="file" accept="image/*" class="form-control" value="@Model.PictureName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description">Description</label>
+                <textarea asp-for="Description" id="description" class="form-control" maxlength="200">@Model.Description</textarea>
+            </div>
+            <input id="submitBtn" type="submit" value="Edit" class="btn btn-primary my-3" />
+        </form>
+        <img class="mx-2" src="~/Images/@Model.PictureName" style="height: 300px;" />
+    </div>
+</div>

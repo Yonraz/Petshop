@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MvcPetShopProject.Models.Animal>
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Animals";
+    var categories = ViewBag.Categories;
+    var animals = ViewBag.Animals;
+    var selectedCategory = ViewBag.SelectedCategory;
+}
+
+<script src="~/scripts/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#animal-select").change(function () {
+            var selectedCategory = $(this).children("option:selected").val();
+            $.ajax({
+                url: '/PetShop/CatalogSelection',
+                type: 'POST',
+                data: { selectedCategory:selectedCategory },
+                success: function (result) {
+                    $('#card-container').html(result);
+                }
+            });
+        });
+    });
+</script>
+<div id="catalog-container">
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <select id="animal-select" class="dropdown-menu-dark dropdown-header">
+            <option value="All">All</option>
+            @foreach (var category in categories)
+            {
+                <option class="dropdown-item"
+                    selected="@(selectedCategory == category.Name)"
+                    value="@category.Name">@category.Name</option>
+            }
+        </select>
+    </div>
+    <div id = "card-container">
+        <partial name = "_AnimalCardGridPartial" model = "@animals" />
+    </div >
+</div>
